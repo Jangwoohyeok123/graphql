@@ -1,6 +1,6 @@
+import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 const ALL_MOVIES = gql`
   query getMovies {
@@ -9,15 +9,9 @@ const ALL_MOVIES = gql`
       title
       medium_cover_image
     }
-    allTweets {
-      id
-      text
-      author {
-        fullName
-      }
-    }
   }
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,13 +61,14 @@ const PosterContainer = styled.div`
 `;
 
 const PosterBg = styled.div`
-  background-image: url(${props => props.background});
+  background-image: url(${(props) => props.background});
   height: 100%;
   width: 100%;
   background-size: cover;
   background-position: center center;
   border-radius: 7px;
 `;
+
 export default function Movies() {
   const { data, loading } = useQuery(ALL_MOVIES);
   return (
@@ -83,7 +78,7 @@ export default function Movies() {
       </Header>
       {loading && <Loading>Loading...</Loading>}
       <MoviesGrid>
-        {data?.allMovies?.map(movie => (
+        {data?.allMovies?.map((movie) => (
           <PosterContainer key={movie.id}>
             <Link to={`/movies/${movie.id}`}>
               <PosterBg background={movie.medium_cover_image} />
@@ -94,12 +89,3 @@ export default function Movies() {
     </Container>
   );
 }
-/* 
-provider란 기본적으로 애플리케이션 안의 모두가 이 client에 
-접근할 수 있게 한다. => route 컴포넌트에 대한 이해 필요
-*/
-
-/*
-
-
-*/

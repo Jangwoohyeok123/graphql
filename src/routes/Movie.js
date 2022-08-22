@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const GET_MOVIE = gql`
-  query getMovie($movieId: String!) {
+  query getMovie($movieId: ID!) {
     movie(id: $movieId) {
       id
       title
@@ -39,15 +39,11 @@ const Subtitle = styled.h4`
   margin-bottom: 10px;
 `;
 
-const Description = styled.p`
-  font-size: 28px;
-`;
-
 const Image = styled.div`
   width: 25%;
   height: 60%;
   background-color: transparent;
-  background-image: url(${props => props.bg});
+  background-image: url(${(props) => props.bg});
   background-size: cover;
   background-position: center center;
   border-radius: 7px;
